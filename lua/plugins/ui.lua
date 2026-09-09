@@ -52,6 +52,79 @@ return {
     end,
   },
 
+  -- Bufferline / Tabline (simple, flat, no bold, no italic)
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      local bufferline = require("bufferline")
+      opts.options = vim.tbl_deep_extend("force", opts.options or {}, {
+        style_preset = {
+          bufferline.style_preset.no_italic,
+          bufferline.style_preset.no_bold,
+        },
+        separator_style = "thin",
+        indicator = {
+          style = "none",
+        },
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        always_show_bufferline = true,
+        offsets = {
+          {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            highlight = "Directory",
+            text_align = "left",
+          },
+        },
+      })
+      opts.highlights = vim.tbl_deep_extend("force", opts.highlights or {}, {
+        buffer_selected = {
+          bold = false,
+          italic = false,
+        },
+        diagnostic_selected = {
+          bold = false,
+          italic = false,
+        },
+        hint_selected = {
+          bold = false,
+          italic = false,
+        },
+        info_selected = {
+          bold = false,
+          italic = false,
+        },
+        warning_selected = {
+          bold = false,
+          italic = false,
+        },
+        error_selected = {
+          bold = false,
+          italic = false,
+        },
+        numbers_selected = {
+          bold = false,
+          italic = false,
+        },
+        duplicate_selected = {
+          bold = false,
+          italic = false,
+        },
+        modified_selected = {
+          bold = false,
+          italic = false,
+        },
+        pick_selected = {
+          bold = false,
+          italic = false,
+        },
+      })
+      return opts
+    end,
+  },
+
   -- Statusline (bubbles theme)
   {
     "nvim-lualine/lualine.nvim",
