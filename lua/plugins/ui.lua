@@ -20,35 +20,26 @@ return {
   { "catppuccin/nvim", lazy = true },
   { "rebelot/kanagawa.nvim", lazy = true },
 
-  -- File tree (nvim-tree instead of LazyVim's neo-tree)
+  -- Disable neo-tree (using snacks.explorer as file tree)
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+
+  -- Top tabs (bufferline: keep active tab simple, not bold)
   {
-    "nvim-tree/nvim-tree.lua",
-    keys = {
-      { "<C-n>", "<cmd>NvimTreeToggle<cr>", desc = "Toggle file tree" },
-    },
-    opts = {
-      renderer = {
-        icons = {
-          show = {
-            file = false,
-            folder = false,
-            folder_arrow = true,
-            git = false,
-          },
-        },
-        indent_markers = { enable = false },
-        add_trailing = true,
-      },
-      view = {
-        side = "left",
-        width = 30,
-        signcolumn = "no",
-      },
-    },
-    config = function(_, opts)
-      require("nvim-tree").setup(opts)
-      vim.opt.fillchars:append({ vert = " " })
+    "akinsho/bufferline.nvim",
+    opts = function(_, opts)
+      local bufferline = require("bufferline")
+      opts.options = opts.options or {}
+      opts.options.style_preset = {
+        bufferline.style_preset.no_bold,
+        bufferline.style_preset.no_italic,
+      }
+      opts.options.themable = false
+      opts.highlights = opts.highlights or {}
+      opts.highlights.buffer_selected = {
+        bold = false,
+        italic = false,
+      }
+      return opts
     end,
   },
 
@@ -105,7 +96,6 @@ return {
           lualine_y = {},
           lualine_z = { "location" },
         },
-        extensions = { "nvim-tree" },
       }
     end,
   },
